@@ -28,7 +28,7 @@ RUN  echo 'no-run-yet' > /var/log/cronlogs/root-simple \
 
 # root cron test
 RUN  echo 'no-run-yet' > /var/log/cronlogs/root \
-  && printf "* * * * *   root /bin/sh -c '. /root/env.sh;env >> /var/log/cronlogs/root 2>&1'\n\n" > /etc/cron.d/root
+  && printf "* * * * *   root /bin/sh -c '. /root/envs.sh;env >> /var/log/cronlogs/root 2>&1'\n\n" > /etc/cron.d/root
 
 # www-data cron test
 RUN echo 'no-run-yet' > /var/log/cronlogs/www-data \
