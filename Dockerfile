@@ -12,6 +12,7 @@ FROM debian:stretch
 # still one wants to have those ENV vars present for the actual service. That is what our cron_runner.sh does for us
 ENV FOO=bar
 
+# our helper to expose env vars and start cron in the foreground
 COPY cron_runner.sh /usr/local/bin/cron_runner
 
 # that is all you need for cron
