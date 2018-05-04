@@ -3,8 +3,14 @@ FROM debian:stretch
 ## i am prefectly aware that i create WAY to much layers splutting the RUN statements
 ## but this file should be a boilerplate, so copy snippets and parts you need
 ## thus i split the statements into its components
+
+# just a test value to see if our source env works. We want to ensure that when we run a cron with
+# www-data we have this variable present - docker would usually not offer this. ENV vars in here
+# and in docker-compose are only present for the user used during build time or more presize "the last user used in the
+# dockerfile" - all other users will not have those env vars present which can be tricky for variious reasons like
+# services running non-privileged in runtime but during build, a privileged user is used and needed during the entrypoint
+# still one wants to have those ENV vars present for the actual service. That is what our cron_runner.sh does for us
 ENV FOO=bar
-ENV TERM=xterm
 
 COPY cron_runner.sh /usr/local/bin/cron_runner
 
