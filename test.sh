@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose exec cron ls -la /var/log/cronlogs
+watch -n2 docker-compose exec cron ls -la /var/log/cronlogs

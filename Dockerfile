@@ -23,17 +23,24 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisor.conf
 COPY supervisor_cron.conf /etc/supervisor/conf.d/cron.conf
 
 # root simple cron test
-RUN  echo 'no-run-yet' > /var/log/cronlogs/root-simple \
-  && printf "* * * * *   root /bin/sh -c 'env >> /var/log/cronlogs/root-simple 2>&1'\n\n" > /etc/cron.d/root-simple
+RUN  echo 'not-run-yet' > /var/log/cronlogs/root-simple \
+  && printf "* * * * *   root /bin/sh -c 'env >> /var/log/cronlogs/root-simple 2>&1'\n" > /etc/cron.d/root-simple
 
 # root cron test
-RUN  echo 'no-run-yet' > /var/log/cronlogs/root \
-  && printf "* * * * *   root /bin/sh -c '. /root/envs.sh;env >> /var/log/cronlogs/root 2>&1'\n\n" > /etc/cron.d/root
+RUN  echo 'not-run-yet' > /var/log/cronlogs/root \
+  && printf "* * * * *   root /bin/sh -c '. /root/envs.sh;env >> /var/log/cronlogs/root 2>&1'\n" > /etc/cron.d/root
 
 # www-data cron test
-RUN echo 'no-run-yet' > /var/log/cronlogs/www-data \
+RUN echo 'not-run-yet' > /var/log/cronlogs/www-data \
   && chown www-data:www-data /var/log/cronlogs/www-data \
   && mkdir -p /home/www-data \
-  && printf "* * * * *   www-data /bin/sh -c '. /home/www-data/envs.sh;env >> /var/log/cronlogs/www-data 2>&1'\n\n" > /etc/cron.d/www-data
+  && printf "* * * * *   www-data /bin/sh -c '. /home/www-data/envs.sh;env >> /var/log/cronlogs/www-data 2>&1'\n" > /etc/cron.d/www-data
+
+################# BROKEN ONES
+
+# this one is broken since the cron file has no newline - this is not allowed
+RUN  echo 'not-run-yet' > /var/log/cronlogs/root \
+  && printf "* * * * *   root /bin/sh -c '. /root/envs.sh;env >> /var/log/cronlogs/root 2>&1'" > /etc/cron.d/root-no-newline-broken
+
 
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
