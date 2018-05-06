@@ -33,20 +33,17 @@ RUN apt-get install -y supervisor bash watch \
 COPY supervisord.conf /etc/supervisor/conf.d/supervisor.conf
 COPY supervisor_cron.conf /etc/supervisor/conf.d/cron.conf
 
-## root
+## CRONS: root
 RUN  echo 'not-run-yet' > /var/log/cronlogs/root
 COPY crons/root.yml /root/.jobber
 
-## www-data cron test
+## CRONS: www-data cron test
 RUN echo 'not-run-yet' > /var/log/cronlogs/www-data \
   && chown www-data:www-data /var/log/cronlogs/www-data \
   && usermod -m -d /home/www-data www-data
 
 COPY crons/www-data.yml /home/www-data/.jobber
 RUN chown -R www-data:www-data /home/www-data
-
-
-
 
 
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
