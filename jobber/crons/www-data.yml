@@ -1,0 +1,22 @@
+[prefs]
+runLog:
+  type: file
+  path: /var/log/cronlogs/www-data-run-history
+  maxFileLen: 100m
+  maxHistories: 2
+
+[jobs]
+- name: Test-WWW-Data
+  cmd: |
+    set -e
+    . /home/www-data/envs.sh
+    echo "hi"
+    env >> /var/log/cronlogs/www-data &2>1
+  time: 0 * * * * *
+
+  resultSinks:
+  - name: mylogs
+    type: filesystem
+    path: /var/log/cronlogs/www-data-result-sink
+    data: [stdout]
+    maxAgeDays: 10

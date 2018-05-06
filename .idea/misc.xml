@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
   <component name="PhpDockerContainerSettings">
     <list>
       <map>
@@ -19,8 +22,5 @@
         </entry>
       </map>
     </list>
-  </component>
-  <component name="ProjectRootManager">
-    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

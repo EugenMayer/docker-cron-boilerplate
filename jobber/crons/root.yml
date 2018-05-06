@@ -1,0 +1,22 @@
+[prefs]
+runLog:
+  type: file
+  path: /var/log/cronlogs/root-run-history
+  maxFileLen: 100m
+  maxHistories: 2
+
+[jobs]
+- name: Test-Root
+  cmd: |
+    set -e
+    . /root/envs.sh
+    env >> /var/log/cronlogs/root &2>1
+  time: 0 * * * * *
+
+- name: Test-Root-Broken
+  cmd: |
+    set -e
+    . /root/envs.sh
+    thatcommanddoesnotexist
+    env >> /var/log/cronlogs/root &2>1
+  time: 0 * * * * *

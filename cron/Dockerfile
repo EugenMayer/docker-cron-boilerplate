@@ -1,6 +1,6 @@
 FROM debian:stretch
 
-## i am prefectly aware that i create WAY to much layers splutting the RUN statements
+## i am prefectly aware that i create WAY to much layers splitting the RUN statements
 ## but this file should be a boilerplate, so copy snippets and parts you need
 ## thus i split the statements into its components
 
